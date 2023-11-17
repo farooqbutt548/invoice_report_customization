@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="text_invoice_report_template">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <div class="page">
+                        <t t-call="web.basic_layout">
+                            <!--<Custom Footer>-->
+                            <div class="footer">
+                                <hr style="height:2px;"/>
+                                <div style="text-align:center">
+                                    <span style="font-size: 10px;">رقم السجل التجاري : 1203412</span>
+                                    <span style="font-size: 10px;">+968 99545222 / +968 هاتف : 71717118</span>
+                                    <span style="font-size: 10px;">سلطنة عمان</span>
+                                    <span style="font-size: 10px;">ص.ب: 70 ر.ب: 123</span>
+                                    <span style="font-size: 10px;">المعبيلة . مسقط</span>
+                                    <span style="font-size: 10px;">قمرة للتجارة</span>
+                                    <br/>
+                                    <span style="font-size: 9px;">CR Number : 1203412</span>
+                                    <span style="font-size: 9px;">Phone: +968 99545222 / +968 ه 71717118</span>
+                                    <span style="font-size: 9px;">Sultanate of Oman</span>
+                                    <span style="font-size: 9px;">P.O Box 70, PC, 123</span>
+                                    <span style="font-size: 9px;">Alma’abelah . Muscat</span>
+                                    <span style="font-size: 9px;">Qomra Trading</span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-7" style="font-size: 13px;">
+                                    <span style="font-size: 50px; margin-top:20px">
+                                        <b>Tax Invoice</b>
+                                    </span>
+                                    <hr/>
+                                    OMQ-C
+                                    <span t-esc="o.name"/>
+                                    <br/>
+                                    DATE:
+                                    <span t-esc="o.invoice_date"/>
+                                    <br/>
+                                    For:
+                                    <span t-esc="o.partner_id.name"/>
+                                    <br/>
+                                    VATIN:
+                                    <span t-esc="o.partner_id.vat"/>
+                                    <br/>
+                                    Reference:
+                                    <span t-esc="o.partner_id.email"/>
+                                    <br/>
+                                    PO: 4301370599
+                                    <br/>
+                                    <br/>
+                                    <b>Subject</b>: Photography &amp; Videography Coverage
+                                    <br/>
+                                    <br/>
+                                    <b>Scope of work</b>:<br/>Ruwad Training Program Signing Agreements
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                </div>
+                                <div class="col-2"></div>
+                                <div class="col-3">
+                                    <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)"
+                                         style="max-height: 230px; margin-top:0px" alt="Logo"/>
+                                    <div style="font-size:13px">
+                                        <b>
+                                            <span>رقم التعريف الضريبي</span>
+                                        </b>
+                                        <br/>
+                                        <b>
+                                            <span>VATIN: OM110007851</span>
+                                        </b>
+                                    </div>
+                                </div>
+                            </div>
+                            <br/>
+                            <br/>
+                            <table>
+                                <tr style="background:#00cfc4; color:#fff;font-size:13px">
+                                    <th style="text-align: center;padding: 8px;">DESCRIPTION</th>
+                                    <th style="text-align: center;padding: 8px;">Item</th>
+                                    <th style="text-align: center;padding: 8px;">Personnel</th>
+                                    <th style="text-align: center;padding: 8px;">Qty</th>
+                                    <th style="text-align: center;padding: 8px;">Unit Price</th>
+                                    <th style="text-align: center;padding: 8px;">VAT%</th>
+                                    <th style="text-align: center;padding: 8px;">Amount OMR</th>
+                                </tr>
+                                <tr t-foreach="o.invoice_line_ids" t-as="line">
+                                    <td style="text-align: left;padding: 8px;border:0px solid #4A4A4A;font-size: 11px;">
+                                        <span t-esc="line.name"/>
+                                    </td>
+                                    <td style="text-align: center;padding: 8px;border-left: 1px solid #4A4A4A;font-size: 11px;">
+                                        <span t-esc="line.quantity"/>
+                                    </td>
+                                    <td style="text-align: center;padding: 8px;border-left: 1px solid #4A4A4A;font-size: 11px;">
+                                        <span t-esc="line.product_id.name"/>
+                                    </td>
+                                    <td style="text-align: center;padding: 8px;border-left: 1px solid #4A4A4A;font-size: 11px;">
+                                        <span t-esc="line.quantity"/>
+                                    </td>
+                                    <td style="text-align: center;padding: 8px;border-left: 1px solid #4A4A4A;font-size: 11px;">
+                                        <span t-esc="line.price_unit"/>
+                                    </td>
+                                    <td style="text-align: center;padding: 8px;border-left: 1px solid #4A4A4A;font-size: 11px;">
+                                        <t t-if="line.tax_ids">
+                                            <t t-foreach="line.tax_ids" t-as="tax">
+                                                <span t-esc="tax.amount"/>
+                                                %
+                                            </t>
+                                        </t>
+                                        <!--                                        <span t-esc="','.join(line.tax_ids.mapped('amount'))"/>-->
+                                    </td>
+                                    <td style="text-align: center;padding: 8px;border-left: 1px solid #4A4A4A;font-size: 11px;">
+                                        <span t-esc="line.price_subtotal"/>
+                                    </td>
+                                </tr>
+                            </table>
+                            <br/>
+                            <div class="row" style="font-size: 13px;margin-top:5px;">
+                                <div class="col-10">Total</div>
+                                <div class="col-2" style="margin-left:55px">
+                                    <span t-esc="o.amount_untaxed"/>
+                                </div>
+                            </div>
+                            <hr style="margin-top:3px;"/>
+                            <div class="row" style="font-size: 13px;margin-top:-10px">
+                                <div class="col-10">Vat%</div>
+                                <div class="col-2" style="margin-left:55px">
+                                    <span t-esc="o.amount_tax"/>
+                                </div>
+                            </div>
+                            <hr style="margin-top:3px;"/>
+                            <div class="row" style="font-size: 13px;margin-top:-5px">
+                                <div class="col-10">
+                                    <b>Total</b>
+                                </div>
+                                <div class="2" style="margin-left:55px">
+                                    <b>
+                                        <span t-esc="o.amount_total"/>
+                                    </b>
+                                </div>
+                            </div>
+                            <hr style="margin-top:-1px;"/>
+                            <br/>
+                            <strong style="font-size: 13px;">Terms and Conditions</strong>
+                            <p style="font-size: 13px;">1-The payment should deposit within 30 days after the
+                                project
+                                receipt is
+                                <br/>
+                                issued
+                            </p>
+
+                            <p style="font-size: 13px;">Please make all checks or credit payable to Qomra Trading
+                                <br/>
+                                Bank Muscat A/C: 0303053495460017
+                                <br/>
+                                Thanks for your business
+                            </p>
+                            <br/>
+                            <br/>
+                            <strong>OMQ</strong>
+
+                            <!--                            <hr style="height:2px;"/>-->
+                            <!--                            <div style="font-size: 10px;">-->
+                            <!--                                <span>رقم السجل التجاري : 1203412</span>-->
+                            <!--                                <span>+968 99545222 / +968 هاتف : 71717118</span>-->
+                            <!--                                <span>سلطنة عمان</span>-->
+                            <!--                                <span>ص.ب: 70 ر.ب: 123</span>-->
+                            <!--                                <span>المعبيلة . مسقط</span>-->
+                            <!--                                <span>قمرة للتجارة</span>-->
+                            <!--                                <br/>-->
+                            <!--                                <span>CR Number : 1203412</span>-->
+                            <!--                                <span>Phone: +968 99545222 / +968 ه 71717118</span>-->
+                            <!--                                <span>Sultanate of Oman</span>-->
+                            <!--                                <span>P.O Box 70, PC, 123</span>-->
+                            <!--                                <span>Alma’abelah . Muscat</span>-->
+                            <!--                                <span>Qomra Trading</span>-->
+                            <!--                            </div>-->
+                        </t>
+
+                    </div>
+                </t>
+            </t>
+        </template>
+
+    </data>
+
+    <record id="paperformat_tax_invoice_report" model="report.paperformat">
+        <field name="name">Custom Paperformat for the Tax Invoice report</field>
+        <!--        <field name="default" eval="False"/>-->
+        <field name="disable_shrinking" eval="True"/>
+        <field name="format">A4</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">5</field>
+        <field name="margin_bottom">25</field>
+        <field name="margin_left">15</field>
+        <field name="margin_right">15</field>
+        <field name="header_spacing">15</field>
+        <field name="dpi">96</field>
+    </record>
+
+    <record id="text_invoice_report_id" model="ir.actions.report">
+        <field name="name">Tax Invoice Reports</field>
+        <field name="model">account.move</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">invoice_report_customization.text_invoice_report_template</field>
+        <field name="report_file">invoice_report_customization.text_invoice_report_template</field>
+        <field name="print_report_name">'Tax Invoice Report- %s' % (object.name).replace('/', '')</field>
+        <field name="binding_model_id" ref="account.model_account_move"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="paperformat_tax_invoice_report"/>
+    </record>
+
+</odoo>
